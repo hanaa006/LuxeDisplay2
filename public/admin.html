@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Luxe Display Admin</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/admin">LUXE <span>DISPLAY</span> <small class="admin-tag">Admin</small></a>
+      <nav class="nav">
+        <a href="/" target="_blank" rel="noopener">View site</a>
+        <button id="logout" class="btn btn-sm btn-outline" type="button" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Login -->
+  <main id="login-view" class="container login" hidden>
+    <form id="login-form" class="card">
+      <h2>Admin login</h2>
+      <div id="login-error" class="alert alert-error" hidden></div>
+      <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn-block" type="submit">Log in</button>
+    </form>
+  </main>
+
+  <!-- Dashboard -->
+  <main id="app-view" class="container dashboard" hidden>
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="orders" role="tab">Orders</button>
+      <button class="tab" data-tab="items" role="tab">Items</button>
+    </div>
+
+    <!-- Orders -->
+    <section id="tab-orders" class="panel">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search name, email, phone or reference…">
+        <select id="status-filter">
+          <option value="">All statuses</option>
+        </select>
+        <select id="when-filter">
+          <option value="upcoming">Upcoming &amp; current</option>
+          <option value="past">Past</option>
+          <option value="all">All dates</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Ref</th><th>Customer</th><th>Items</th><th>Pick-up</th><th>Drop-off</th><th>Total</th><th>Status</th></tr>
+          </thead>
+          <tbody id="orders-body"></tbody>
+        </table>
+      </div>
+      <p id="orders-empty" class="muted center" hidden>No orders match these filters.</p>
+    </section>
+
+    <!-- Items -->
+    <section id="tab-items" class="panel" hidden>
+      <div class="toolbar"><button id="new-item" class="btn btn-sm" type="button">+ Add item</button></div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Item</th><th>Category</th><th>Price</th><th>Stock</th><th>Shown on site</th><th></th></tr></thead>
+          <tbody id="items-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Order drawer -->
+  <div id="drawer-backdrop" class="backdrop" hidden></div>
+  <aside id="order-drawer" class="drawer" hidden aria-label="Order details">
+    <button class="close" type="button" data-close>&times;</button>
+    <div id="order-detail"></div>
+  </aside>
+
+  <!-- Item dialog -->
+  <aside id="item-drawer" class="drawer" hidden aria-label="Edit item">
+    <button class="close" type="button" data-close>&times;</button>
+    <form id="item-form">
+      <h2 id="item-title">Add item</h2>
+      <div id="item-error" class="alert alert-error" hidden></div>
+      <input type="hidden" name="id">
+      <div class="field"><label>Name</label><input name="name" required maxlength="120"></div>
+      <div class="field">
+        <label>Category</label>
+        <input name="category" list="categories" maxlength="60">
+        <datalist id="categories"><option>Cake Stand</option><option>Food Tray</option><option>Drink Dispenser</option></datalist>
+      </div>
+      <div class="field"><label>Description</label><textarea name="description" maxlength="1000"></textarea></div>
+      <div class="grid-2">
+        <div class="field"><label>Price per rental</label><input name="price" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>How many you own</label><input name="stock" type="number" min="0" step="1"></div>
+      </div>
+      <div class="field"><label>Image URL (optional)</label><input name="imageUrl" type="url" placeholder="https://…"></div>
+      <div class="field check"><label><input name="active" type="checkbox"> Show on website</label></div>
+      <button class="btn btn-block" type="submit">Save item</button>
+    </form>
+  </aside>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

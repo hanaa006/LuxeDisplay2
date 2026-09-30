@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luxe Display – Cake Stand, Tray & Drink Dispenser Hire</title>
+  <meta name="description" content="Hire elegant cake stands, food trays and drink dispensers for weddings, birthdays and every kind of event. Book your pick-up and drop-off dates online.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/flatpickr/flatpickr.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">LUXE <span>DISPLAY</span></a>
+      <nav class="nav">
+        <a href="#how">How it works</a>
+        <a href="#collection">Collection</a>
+        <a class="btn btn-sm" href="#book">Book now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Event display hire</div>
+        <h1>Make every table<br>a centrepiece</h1>
+        <p>Luxury cake stands, serving trays and drink dispensers for weddings, birthdays, baby showers and every celebration in between.</p>
+        <div class="actions">
+          <a class="btn" href="#book">Check availability</a>
+          <a class="btn btn-outline" href="#collection">View the collection</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Simple from start to finish</div>
+          <h2>How it works</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">01</div><h3>Choose your pieces</h3><p class="muted">Pick the stands, trays and dispensers that suit your event.</p></div>
+          <div class="step"><div class="num">02</div><h3>Pick your dates</h3><p class="muted">Select a pick-up date and a drop-off date. Booked dates are greyed out.</p></div>
+          <div class="step"><div class="num">03</div><h3>Collect & celebrate</h3><p class="muted">We confirm your booking, you collect on the day and return after your event.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collection" class="booking">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">The collection</div>
+          <h2>Choose your pieces</h2>
+          <p class="muted">Tap an item to add it to your booking. Prices are per rental.</p>
+        </div>
+        <div id="products" class="products" aria-live="polite"><p class="muted center">Loading collection…</p></div>
+      </div>
+    </section>
+
+    <section id="book">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Reserve your dates</div>
+          <h2>Book your hire</h2>
+        </div>
+
+        <div id="booking-form-wrap" class="booking-grid">
+          <div class="card">
+            <h3>1. Pick-up &amp; drop-off dates</h3>
+            <p class="muted" id="calendar-hint">Select the items you'd like first, then choose your pick-up date followed by your drop-off date.</p>
+            <div class="calendar-wrap"><input id="dates" type="text" hidden></div>
+            <div class="legend">
+              <span><i style="background:var(--ink)"></i>Your dates</span>
+              <span><i style="background:repeating-linear-gradient(45deg,#f6e1df,#f6e1df 3px,#fff 3px,#fff 6px);border:1px solid #eee"></i>Already booked</span>
+            </div>
+            <div class="date-summary">
+              <div class="date-box"><div class="lbl">Pick-up</div><div class="val" id="pickup-label">—</div></div>
+              <div class="date-box"><div class="lbl">Drop-off</div><div class="val" id="return-label">—</div></div>
+            </div>
+          </div>
+
+          <form id="booking-form" class="card" novalidate>
+            <h3>2. Your details</h3>
+            <div id="form-error" class="alert alert-error" role="alert" hidden></div>
+
+            <ul id="selected-list" class="selected-list"></ul>
+            <p id="no-items" class="muted">No items selected yet – <a href="#collection">choose from the collection</a>.</p>
+
+            <div class="grid-2">
+              <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
+            </div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field">
+              <label for="eventType">Event type</label>
+              <select id="eventType" name="eventType">
+                <option value="">Select…</option>
+                <option>Wedding</option><option>Birthday</option><option>Baby shower</option>
+                <option>Engagement</option><option>Corporate event</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label for="notes">Anything else we should know?</label><textarea id="notes" name="notes" maxlength="1000"></textarea></div>
+
+            <div class="total-row"><span>Estimated total</span><span id="total">£0.00</span></div>
+            <button id="submit-btn" class="btn btn-block" type="submit">Request booking</button>
+            <p class="muted" style="font-size:.85rem;margin-top:10px">Payment and any deposit are arranged when we confirm your booking.</p>
+          </form>
+        </div>
+
+        <div id="confirmation" class="card confirmation" hidden>
+          <div class="eyebrow">Booking received</div>
+          <h2>Thank you!</h2>
+          <p>Your booking reference is</p>
+          <div class="ref" id="conf-ref"></div>
+          <div class="divider"></div>
+          <p id="conf-dates"></p>
+          <p class="muted">We'll be in touch shortly to confirm. Please keep your reference handy.</p>
+          <button class="btn btn-outline" type="button" id="book-another">Make another booking</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> Luxe Display · Event display hire</div>
+  </footer>
+
+  <script src="/vendor/flatpickr/flatpickr.min.js"></script>
+  <script src="/js/booking.js"></script>
+</body>
+</html>
