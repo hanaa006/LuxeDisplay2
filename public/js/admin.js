@@ -161,6 +161,7 @@
           <label for="order-status">Status</label>
           <select id="order-status">${Object.entries(STATUS_LABELS).map(([v, l]) => `<option value="${v}" ${v === b.status ? 'selected' : ''}>${l}</option>`).join('')}</select>
         </div>
+        <div id="cancel-warning" class="alert alert-error" hidden>Saving will cancel this order and make its dates available to other customers.</div>
         <div class="field">
           <label for="order-notes">Private notes</label>
           <textarea id="order-notes" placeholder="Deposit paid, collection time…">${esc(b.admin_notes)}</textarea>
@@ -170,16 +171,20 @@
       </form>`;
     openDrawer('order-drawer');
 
+    $('order-status').addEventListener('change', () => {
+      $('cancel-warning').hidden = !($('order-status').value === 'cancelled' && b.status !== 'cancelled');
+    });
+
     $('order-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       $('order-error').hidden = true;
       $('order-ok').hidden = true;
       const status = $('order-status').value;
-      if (status === 'cancelled' && b.status !== 'cancelled' && !confirm('Cancel this order? Its dates will become available to other customers.')) return;
       try {
         await api(`/bookings/${id}`, { method: 'PATCH', body: { status, adminNotes: $('order-notes').value } });
         $('order-ok').hidden = false;
         b.status = status;
+        $('cancel-warning').hidden = true;
         await Promise.all([loadOrders(), loadStats()]);
       } catch (err) {
         $('order-error').textContent = err.message;
